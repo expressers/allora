@@ -1,8 +1,10 @@
-# ALLORA: design system (two proposals)
+# ALLORA: design system (three proposals)
+
+`/` is a chooser page linking to `/proposta-1/`, `/proposta-2/` and `/proposta-3/`. Every proposal carries a small fixed switcher (bottom-left) to move between them.
 
 Both proposals share content (`src/shared/content.ts`), motion setup (`src/shared/motion.ts`, GSAP + ScrollTrigger + Lenis, reduced-motion aware) and the brand's core sign: the radial ring of dashes from the ALLORA logo, graded red to deep red to carbon.
 
-## Proposta 1, "O Inventário" (`/`)
+## Proposta 1, "O Inventário" (`/proposta-1/`)
 
 The site is a living carbon inventory. The logo ring becomes a measuring instrument (the Carbonómetro).
 
@@ -22,6 +24,16 @@ Time made visible: a baobab cross-section drawn with ALLORA's dash.
 - Type: Bodoni Moda Variable (display, italic for emphasis in red), Onest Variable for body.
 - Shape: pill buttons, 14px logo chips, images unrounded.
 - Signature: full-viewport canvas rings with pointer ripples; pinned ring index where each service lights its ring; Fórum logo dissolves into the event photo growing inside a circle; 47 t counter.
+
+## Proposta 3, "O Túnel" (`/proposta-3/`)
+
+Cinematic. References: Station Six (Behance, red translucent disc over B&W photography, edge-to-edge type), Immersive Garden "Space Sustainability" and Active Theory "Sustainable Horizons" (Awwwards).
+
+- Theme: black `#000`, bone `#f1ebe3`, muted `#a39b94`, red `#ff2a1f`.
+- Type: Anybody Variable at wide widths (wdth 130 to 150, weight 800 to 900) for titles, JetBrains Mono for metadata.
+- Signature: Three.js tunnel of 44 dash rings (InstancedMesh + bloom). Ring 0 is the logo; scroll dives through chapters Medir / Reduzir / Compensar; rings turn from red (emitted) to bone (compensated) at the 47 t climax; the tunnel returns fully compensated behind the closing ALLORA wordmark.
+- Red lens: B&W FILDA photos with a red duotone circle that follows the pointer and grows with scroll; frames cut by vertical wipe.
+- Fórum: pinned horizontal reel (B&W, colour on hover), quote, facts. Services set as end credits. Film grain and letterbox on the hero.
 
 ## Assets
 

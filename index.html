@@ -3,13 +3,46 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#f2f3f1" />
-    <title>ALLORA | Consultoria em Sustentabilidade e ESG</title>
-    <meta name="description" content="Consultoria ESG e de sustentabilidade para empresas e instituições em Angola. Medir, reduzir e compensar a pegada carbónica." />
+    <meta name="theme-color" content="#050404" />
+    <title>ALLORA | Propostas de website</title>
+    <meta name="description" content="Três propostas de website para a ALLORA, consultoria em sustentabilidade e ESG." />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/p1/main.tsx"></script>
+    <main class="home">
+      <header class="home-top">
+        <span class="home-brand">ALLORA</span>
+        <span class="home-meta">Propostas de website</span>
+      </header>
+      <h1 class="home-title">Três caminhos para o mesmo anel.</h1>
+      <ol class="props">
+        <li>
+          <a class="prop p1" href="/proposta-1/">
+            <span class="prop-n">Proposta 1</span>
+            <span class="prop-name">O Inventário</span>
+            <span class="prop-desc">Claro e técnico. O anel do logótipo como instrumento que mede e compensa.</span>
+            <span class="prop-ring" data-ring="p1" aria-hidden="true"></span>
+          </a>
+        </li>
+        <li>
+          <a class="prop p2" href="/proposta-2/">
+            <span class="prop-n">Proposta 2</span>
+            <span class="prop-name">Anéis do Embondeiro</span>
+            <span class="prop-desc">Editorial e escuro. O tempo gravado em anéis, com serifa italiana.</span>
+            <span class="prop-ring" data-ring="p2" aria-hidden="true"></span>
+          </a>
+        </li>
+        <li>
+          <a class="prop p3" href="/proposta-3/">
+            <span class="prop-n">Proposta 3</span>
+            <span class="prop-name">O Túnel</span>
+            <span class="prop-desc">Cinematográfico, em 3D. Um mergulho pelo anel, do emitido ao compensado.</span>
+            <span class="prop-ring" data-ring="p3" aria-hidden="true"></span>
+          </a>
+        </li>
+      </ol>
+      <footer class="home-foot">Expressers, Outubro 2026</footer>
+    </main>
+    <script type="module" src="/src/home/main.ts"></script>
   </body>
 </html>

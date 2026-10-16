@@ -3,6 +3,7 @@ import { ArrowUpRight } from '@phosphor-icons/react/dist/csr/ArrowUpRight'
 import { ArrowDown } from '@phosphor-icons/react/dist/csr/ArrowDown'
 import { InstagramLogo } from '@phosphor-icons/react/dist/csr/InstagramLogo'
 import { Ring } from './Ring'
+import { Switch } from '../shared/Switch'
 import { CTA, contact, forum, mailto, method, nav, partners, services } from '../shared/content'
 import { gsap, ScrollTrigger, revealOnScroll, reduceMotion, startSmoothScroll, EASE_OUT } from '../shared/motion'
 
@@ -347,6 +348,7 @@ export default function App() {
         <Partners />
         <Contact />
       </main>
+      <Switch current={1} />
     </div>
   )
 }
