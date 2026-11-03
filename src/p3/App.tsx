@@ -2,7 +2,6 @@ import { useEffect, useLayoutEffect, useRef } from 'react'
 import { ArrowUpRight } from '@phosphor-icons/react/dist/csr/ArrowUpRight'
 import { InstagramLogo } from '@phosphor-icons/react/dist/csr/InstagramLogo'
 import { Tunnel, type TunnelState } from './Tunnel'
-import { Switch } from '../shared/Switch'
 import { CTA, contact, forum, mailto, partners, services } from '../shared/content'
 import { gsap, ScrollTrigger, revealOnScroll, reduceMotion, startSmoothScroll, EASE_OUT } from '../shared/motion'
 
@@ -280,7 +279,6 @@ export default function App() {
         <Credits />
         <Finale />
       </main>
-      <Switch current={3} />
     </div>
   )
 }

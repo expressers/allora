@@ -1,9 +1,6 @@
-# ALLORA, propostas de website
+# ALLORA, website institucional
 
-Duas homepages para a ALLORA (consultoria ESG, Angola):
-
-- `/` Proposta 1, O Inventário
-- `/proposta-2/` Proposta 2, Anéis do Embondeiro
+Website da ALLORA (consultoria ESG, Angola), com o visual aprovado "O Túnel" na raiz do site.
 
 React + Vite + Bun + TypeScript, deploy estático no Render.
 
