@@ -8,7 +8,7 @@ web
 
 ## Stack
 
-React + Vite + Bun + TypeScript, front-end only, static deploy on Render (Expressers house stack, same as alberto-charamba).
+React + Vite + Bun + TypeScript, front-end only, static deploy on Vercel.
 
 ## Users
 

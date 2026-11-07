@@ -2,7 +2,7 @@
 
 Site da ALLORA (consultoria em sustentabilidade e ESG, Angola). Direcção visual aprovada pelo cliente: Proposta 3, "O Túnel".
 
-React + Vite + Bun + TypeScript, deploy estático no Render.
+React + Vite + Bun + TypeScript, deploy estático na Vercel (projecto `expressers-ao/allora`), a partir do `main`.
 
 ```
 bun install
