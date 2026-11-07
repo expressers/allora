@@ -11,11 +11,7 @@
   },
   "dependencies": {
     "@fontsource-variable/anybody": "^5.3.0",
-    "@fontsource-variable/bodoni-moda": "^5.3.0",
-    "@fontsource-variable/geist": "^5.3.0",
-    "@fontsource-variable/geist-mono": "^5.3.0",
     "@fontsource-variable/jetbrains-mono": "^5.3.0",
-    "@fontsource-variable/onest": "^5.3.1",
     "@gsap/react": "^2.1.2",
     "@phosphor-icons/react": "^2.1.10",
     "gsap": "^3.15.0",

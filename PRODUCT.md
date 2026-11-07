@@ -25,10 +25,11 @@ Angolan-rooted ESG practice that measures and acts: carbon footprint measurement
 ## Brand commitments
 
 - Logo: ring of radial rounded dashes graded red to deep red to black, with "ALLORA" in thin spaced capitals (A without crossbar) in the centre.
-- Contact: geral@allora.co.ao, +244 923 268 817 / 929 358 401, Luanda.
+- Contact (from the 2026 institutional PDF): geral@allora.ao, +244 929 358 401 / 923 268 817, Condomínio Bengo, 9.º andar, porta D, Vila Alice, Luanda. Earlier public material used geral@allora.co.ao: confirm with the client.
 - Instagram: @allorasulda.
 
 ## Open decisions
 
-- Final service list and case studies to be confirmed with the client; current copy derived from public material.
+- Services, numbers, mission/vision/values, initiatives and partners now come from the client's Apresentação Institucional (2026). Still to confirm: email domain (allora.ao vs allora.co.ao vs alloraesg.com), Facebook and YouTube URLs, partner list spelling, and what the Nigéria / Brasil / África do Sul map in the PDF means.
+- Partner logos: shown as text credits until the client supplies vector logos.
 - Real photography beyond Instagram/forum material to be supplied by the client.

@@ -1,35 +1,30 @@
-import { useEffect, useLayoutEffect, useRef } from 'react'
+import { Suspense, lazy, useEffect, useLayoutEffect, useRef } from 'react'
 import { ArrowUpRight } from '@phosphor-icons/react/dist/csr/ArrowUpRight'
 import { InstagramLogo } from '@phosphor-icons/react/dist/csr/InstagramLogo'
-import { Tunnel, type TunnelState } from './Tunnel'
-import { Switch } from '../shared/Switch'
-import { CTA, contact, forum, mailto, partners, services } from '../shared/content'
+import type { TunnelState } from './Tunnel'
+import {
+  CTA, about, chapters, contact, forum, initiatives, mailto, nav, numbers,
+  partnerCounts, partners, presence, sectors, services,
+} from '../shared/content'
 import { gsap, ScrollTrigger, revealOnScroll, reduceMotion, startSmoothScroll, EASE_OUT } from '../shared/motion'
 
-const navP3 = [
-  { label: 'Método', href: '#medir' },
-  { label: 'Carbonómetro', href: '#carbonometro' },
-  { label: 'Fórum', href: '#forum' },
-  { label: 'Serviços', href: '#creditos' },
-]
+// Three.js is ~700 kB: load it after the hero copy so the first paint is not blocked.
+const Tunnel = lazy(() => import('./Tunnel').then((m) => ({ default: m.Tunnel })))
+
+/** 1000 -> "1.000" (Portuguese grouping, also for four-digit numbers). */
+const fmt = (n: number) => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, '.')
 
 function Header() {
   return (
     <header className="hdr">
       <a href="#topo" className="brand" aria-label="ALLORA, início">ALLORA</a>
       <nav className="hdr-nav" aria-label="Principal">
-        {navP3.map((n) => <a key={n.href} href={n.href}>{n.label}</a>)}
+        {nav.map((n) => <a key={n.href} href={n.href}>{n.label}</a>)}
       </nav>
       <a className="btn btn-sm" href={mailto}>{CTA}</a>
     </header>
   )
 }
-
-const chapters = [
-  { id: 'medir', word: 'Medir', text: 'Observamos o terreno, os processos e as práticas. Nenhuma solução antes do diagnóstico.' },
-  { id: 'reduzir', word: 'Reduzir', text: 'O diagnóstico vira plano estratégico de sustentabilidade e ESG, com metas verificáveis.' },
-  { id: 'compensar', word: 'Compensar', text: 'O que não se evita é neutralizado com créditos de carbono certificados.' },
-]
 
 function TunnelAct() {
   return (
@@ -42,7 +37,7 @@ function TunnelAct() {
           <span className="ln"><span>amanhã <em>hoje.</em></span></span>
         </h1>
         <div className="hero-side">
-          <p>Consultoria em sustentabilidade e ESG para empresas e instituições em Angola.</p>
+          <p>Transformamos sustentabilidade em valor para empresas, comunidades e o futuro de Angola.</p>
           <a className="btn" href={mailto}>{CTA}<ArrowUpRight size={16} weight="bold" /></a>
         </div>
       </div>
@@ -60,6 +55,88 @@ function TunnelAct() {
   )
 }
 
+function About() {
+  const root = useRef<HTMLElement>(null)
+  useLayoutEffect(() => {
+    if (reduceMotion()) return
+    const ctx = gsap.context(() => {
+      gsap.fromTo('.about-img', { clipPath: 'inset(100% 0 0 0)' }, {
+        clipPath: 'inset(0% 0 0 0)', ease: 'none',
+        scrollTrigger: { trigger: '.about-img', start: 'top 90%', end: 'top 35%', scrub: true },
+      })
+      gsap.fromTo('.about-img img', { scale: 1.18 }, {
+        scale: 1, ease: 'none',
+        scrollTrigger: { trigger: '.about-img', start: 'top bottom', end: 'bottom top', scrub: true },
+      })
+    }, root)
+    return () => ctx.revert()
+  }, [])
+  return (
+    <section ref={root} id="sobre" className="about">
+      <h2 className="about-statement" data-reveal>{about.statement}</h2>
+      <div className="about-grid">
+        <figure className="about-img">
+          <img src="/media/terreno.webp" alt="Equipa da ALLORA em trabalho de campo" loading="lazy" />
+        </figure>
+        <div className="about-copy">
+          <p className="about-body" data-reveal>{about.body}</p>
+          <p className="about-belief" data-reveal>{about.belief}</p>
+          <dl className="pillars">
+            {about.pillars.map((p, i) => (
+              <div key={p.label} className="pillar" data-reveal data-delay={i * 0.06}>
+                <dt>{p.label}</dt>
+                <dd>{p.text}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function Numbers() {
+  const root = useRef<HTMLElement>(null)
+  useLayoutEffect(() => {
+    if (reduceMotion()) return
+    const ctx = gsap.context(() => {
+      // rows use display: contents (shared number column), so the number box is the trigger
+      gsap.utils.toArray<HTMLElement>('.tally-row').forEach((row) => {
+        const num = row.querySelector<HTMLElement>('.tally-num')!
+        const out = row.querySelector<HTMLElement>('.tally-n')!
+        const to = Number(out.dataset.to)
+        const n = { v: 0 }
+        out.textContent = '0'
+        gsap.to(n, {
+          v: to, duration: 1.6, ease: 'expo.out',
+          onUpdate: () => { out.textContent = fmt(n.v) },
+          scrollTrigger: { trigger: num, start: 'top 88%', once: true },
+        })
+        gsap.from(row.querySelector('.tally-label'), {
+          opacity: 0, x: -16, filter: 'blur(6px)', duration: 1, ease: EASE_OUT,
+          scrollTrigger: { trigger: num, start: 'top 88%', once: true },
+        })
+      })
+    }, root)
+    return () => ctx.revert()
+  }, [])
+  return (
+    <section ref={root} id="impacto" className="tally" aria-labelledby="tally-title">
+      <h2 id="tally-title" className="tally-title" data-reveal>Impacto que se conta.</h2>
+      <ol className="tally-list">
+        {numbers.map((n) => (
+          <li key={n.label} className="tally-row">
+            <span className="tally-num">
+              <span className="tally-n" data-to={n.value}>{fmt(n.value)}</span><span className="tally-plus">{n.suffix}</span>
+            </span>
+            <span className="tally-label">{n.label}</span>
+          </li>
+        ))}
+      </ol>
+    </section>
+  )
+}
+
 const frames = [
   { src: '/media/carbonometro-opaia.webp', cap: 'Stand da OPAIA, FILDA 2026' },
   { src: '/media/carbonometro-bcs.webp', cap: 'Stand do BCS, FILDA 2026' },
@@ -71,7 +148,7 @@ function Lens() {
   useLayoutEffect(() => {
     const stage = root.current!.querySelector<HTMLElement>('.lens-stage')!
     const reduce = reduceMotion()
-    const pos = { x: 0.62, y: 0.48, tx: 0.62, ty: 0.48, r: 0 }
+    const pos = { x: 0.62, y: 0.48, tx: 0.62, ty: 0.48 }
     let raf = 0
     const onMove = (e: PointerEvent) => {
       const b = stage.getBoundingClientRect()
@@ -110,7 +187,7 @@ function Lens() {
         ))}
         <div className="lens-copy">
           <h2 className="lens-title">Carbonómetro</h2>
-          <p>A solução da ALLORA para medir, reduzir e compensar a pegada carbónica. Na FILDA 2026, cada visitante dos stands do BFA, do BCS e da OPAIA saiu a conhecer o seu número.</p>
+          <p>A solução da ALLORA para medir, reduzir e compensar a pegada carbónica. Na FILDA 2026 levámos ao recinto o primeiro stand com certificação Carbono Neutro em Angola, e cada visitante dos stands do BFA, do BCS e da OPAIA saiu a conhecer o seu número.</p>
         </div>
       </div>
     </section>
@@ -143,8 +220,8 @@ function Reel() {
     <section ref={wrap} id="forum" className="reel">
       <div ref={track} className="reel-track">
         <div className="reel-intro">
-          <h2 className="reel-title">Fórum Nacional de Negócios Sustentáveis</h2>
-          <p className="mono">{forum.edition}. {forum.date}. {forum.venue}.</p>
+          <h2 className="reel-title">{forum.name}</h2>
+          <p className="mono">{forum.edition}, {forum.date}. {forum.venue}.</p>
           <p className="reel-text">{forum.text}</p>
         </div>
         {reel.map((r, i) => {
@@ -168,31 +245,36 @@ function Reel() {
   )
 }
 
-function Recognition() {
+function Initiatives() {
   const root = useRef<HTMLElement>(null)
   useLayoutEffect(() => {
     if (reduceMotion()) return
     const ctx = gsap.context(() => {
-      gsap.utils.toArray<HTMLElement>('.rc-line').forEach((line) => {
-        gsap.fromTo(line.querySelectorAll('.w'), { opacity: 0.12 }, {
-          opacity: 1, stagger: 0.06, ease: 'none',
-          scrollTrigger: { trigger: line, start: 'top 82%', end: 'bottom 50%', scrub: true },
-        })
+      gsap.fromTo('.rc-line .w', { opacity: 0.12 }, {
+        opacity: 1, stagger: 0.06, ease: 'none',
+        scrollTrigger: { trigger: '.rc-line', start: 'top 82%', end: 'bottom 45%', scrub: true },
       })
     }, root)
     return () => ctx.revert()
   }, [])
   const words = (s: string) => s.split(' ').map((w, i) => <span key={i} className="w">{w} </span>)
   return (
-    <section ref={root} id="impacto" className="recog">
+    <section ref={root} id="iniciativas" className="recog">
       <div className="rc">
-        <p className="mono">24.04.2026</p>
-        <p className="rc-line">{words('Vencedora dos Prémios Forbes Responsabilidade Social, com o Papel Semente.')}</p>
+        <h2 className="rc-line">{words('O Papel Semente venceu. Um papel que, depois de usado, se planta e dá flores.')}</h2>
+        <p className="mono">Prémios Forbes Responsabilidade Social, 24 de Abril de 2026</p>
       </div>
-      <figure className="rc-img duo"><img src="/media/papel-semente.webp" alt="Papel Semente da ALLORA, lembranças de evento que se plantam" loading="lazy" /></figure>
-      <div className="rc">
-        <p className="mono">10.03.2026</p>
-        <p className="rc-line">{words('47 créditos de carbono cancelados. Neutralidade integral do 2.º Fórum, no quadro do Protocolo de Quioto.')}</p>
+      <div className="rc-feature">
+        <figure className="rc-img duo"><img src="/media/papel-semente.webp" alt="Papel Semente da ALLORA, lembranças de evento que se plantam" loading="lazy" /></figure>
+        <p className="rc-text" data-reveal>O Papel Semente Angola transforma materiais biodegradáveis em papel ecológico com sementes incorporadas. Depois de usado, é plantado e dá origem a flores, ervas aromáticas ou espécies nativas. Inovação, economia circular e responsabilidade ambiental no mesmo gesto.</p>
+      </div>
+      <div className="inits">
+        {initiatives.map((it, i) => (
+          <article key={it.name} className="init" data-reveal data-delay={i * 0.06}>
+            <h3>{it.name}</h3>
+            <p>{it.text}</p>
+          </article>
+        ))}
       </div>
     </section>
   )
@@ -200,7 +282,7 @@ function Recognition() {
 
 function Credits() {
   return (
-    <section id="creditos" className="credits">
+    <section id="servicos" className="credits">
       <h2 className="credits-title" data-reveal>O que fazemos</h2>
       <dl className="credits-list">
         {services.map((s, i) => (
@@ -210,10 +292,20 @@ function Credits() {
           </div>
         ))}
       </dl>
-      <h3 className="credits-sub" data-reveal>Com os parceiros do Fórum</h3>
-      <div className="credits-logos" data-reveal>
-        {partners.map((p) => <img key={p.src} src={p.src} alt={p.name} loading="lazy" />)}
-      </div>
+      <p className="credits-sectors" data-reveal>
+        Para {sectors.slice(0, -1).map((s) => s.toLowerCase()).join(', ')} e {sectors[sectors.length - 1].toLowerCase()}.
+      </p>
+
+      <h3 className="credits-sub" data-reveal>Com quem trabalhamos</h3>
+      <dl className="credits-counts" data-reveal>
+        {partnerCounts.map((c) => <div key={c.label}><dt>{c.value}</dt><dd>{c.label}</dd></div>)}
+      </dl>
+      <ul className="credits-names" data-reveal aria-label="Parceiros">
+        {partners.map((p) => <li key={p}>{p}</li>)}
+      </ul>
+      <p className="credits-presence" data-reveal>
+        Com parceiros em {presence.slice(0, -1).join(', ')} e {presence[presence.length - 1]}.
+      </p>
     </section>
   )
 }
@@ -222,9 +314,13 @@ function Finale() {
   return (
     <section id="contacto" className="finale">
       <div className="finale-top">
-        <a className="finale-mail" href={mailto}>{contact.email}<ArrowUpRight size={28} weight="light" /></a>
+        <div className="finale-lead">
+          <a className="finale-mail" href={mailto}>{contact.email}<ArrowUpRight size={28} weight="light" /></a>
+          <p className="finale-note">Para orçamentos e sugestões, estamos disponíveis 24 horas por dia, todos os dias.</p>
+        </div>
         <div className="finale-meta mono">
           {contact.phones.map((p) => <a key={p} href={`tel:${p.replace(/\s/g, '')}`}>{p}</a>)}
+          <address>{contact.address[0]}<br />{contact.address[1]}</address>
           <a href={contact.instagram} target="_blank" rel="noreferrer"><InstagramLogo size={14} /> @allorasulda</a>
         </div>
         <a className="btn btn-lg" href={mailto}>{CTA}<ArrowUpRight size={18} weight="bold" /></a>
@@ -244,7 +340,7 @@ export default function App() {
     const sync = () => { state.current.visible = Math.max(fade.out, fade.back) }
     const ctx = gsap.context(() => {
       ScrollTrigger.create({ trigger: '.act-tunnel', start: 'top top', end: 'bottom bottom', onUpdate: (s) => { state.current.progress = s.progress * 0.86 } })
-      ScrollTrigger.create({ trigger: '.lens', start: 'top bottom', end: 'top 20%', onUpdate: (s) => { fade.out = 1 - s.progress; sync() } })
+      ScrollTrigger.create({ trigger: '.about', start: 'top bottom', end: 'top 20%', onUpdate: (s) => { fade.out = 1 - s.progress; sync() } })
       ScrollTrigger.create({
         trigger: '.finale', start: 'top bottom', end: 'top 10%',
         onUpdate: (s) => { fade.back = s.progress; if (s.progress > 0) state.current.progress = 0.86 + s.progress * 0.14; sync() },
@@ -269,18 +365,19 @@ export default function App() {
 
   return (
     <div ref={root}>
-      <Tunnel stateRef={state} />
+      <Suspense fallback={null}><Tunnel stateRef={state} /></Suspense>
       <div className="grain" aria-hidden="true" />
       <Header />
       <main>
         <TunnelAct />
+        <About />
+        <Numbers />
         <Lens />
         <Reel />
-        <Recognition />
+        <Initiatives />
         <Credits />
         <Finale />
       </main>
-      <Switch current={3} />
     </div>
   )
 }
