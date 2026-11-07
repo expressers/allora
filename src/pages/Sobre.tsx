@@ -2,6 +2,7 @@ import { Page, TextLink } from '../ui/Page'
 import { PageHero } from '../ui/PageHero'
 import { CtaBand } from '../ui/CtaBand'
 import { LogoWall } from '../ui/LogoWall'
+import { ImageBand } from '../ui/ImageBand'
 import { house, methods, numbers, partnerCounts, presence } from '../shared/content'
 import { fmt } from '../shared/motion'
 
@@ -25,6 +26,8 @@ export default function Sobre() {
           {methods.map((m) => <li key={m}>{m}</li>)}
         </ul>
       </section>
+
+      <ImageBand src="/media/verde/angola-costa.webp" alt="Vegetação verde junto à costa angolana, com o mar ao fundo" caption="Angola" position="50% 60%" />
 
       <section className="sec mvv" aria-label="Missão, visão e valores">
         {house.pillars.map((p) => (

@@ -2,6 +2,7 @@ import { ArrowDownRight } from '@phosphor-icons/react/dist/csr/ArrowDownRight'
 import { Page, TextLink } from '../ui/Page'
 import { PageHero } from '../ui/PageHero'
 import { CtaBand } from '../ui/CtaBand'
+import { ImageBand } from '../ui/ImageBand'
 import { CTA, contactFor, methods, sectors, services } from '../shared/content'
 
 export default function Servicos() {
@@ -34,6 +35,7 @@ export default function Servicos() {
           <section key={s.slug} id={s.slug} className="svc" aria-labelledby={`${s.slug}-t`}>
             <div className="svc-head">
               <h2 id={`${s.slug}-t`} className="svc-title">{s.title}</h2>
+              <figure className="svc-img"><img src={s.img} alt={s.alt} loading="lazy" decoding="async" /></figure>
             </div>
             <div className="svc-body">
               <p className="body-lg" data-reveal>{s.text}</p>
@@ -48,6 +50,8 @@ export default function Servicos() {
           </section>
         ))}
       </div>
+
+      <ImageBand src="/media/verde/eolicas.webp" alt="Turbinas eólicas num campo ao pôr do sol" />
 
       <section className="sec sectors" aria-labelledby="sectores">
         <h2 id="sectores" className="h-xl" data-reveal>Sectores onde actuamos</h2>

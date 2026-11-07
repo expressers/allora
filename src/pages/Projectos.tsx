@@ -3,6 +3,7 @@ import { ArrowUpRight } from '@phosphor-icons/react/dist/csr/ArrowUpRight'
 import { Page } from '../ui/Page'
 import { PageHero } from '../ui/PageHero'
 import { CtaBand } from '../ui/CtaBand'
+import { ImageBand } from '../ui/ImageBand'
 import { cases, initiatives, seedPaper } from '../shared/content'
 import { gsap, reduceMotion } from '../shared/motion'
 
@@ -60,6 +61,8 @@ export default function Projectos() {
         </ul>
       </section>
 
+      <ImageBand src="/media/verde/maos-planta-verde.webp" alt="Mãos em concha a segurar uma pequena planta verde" />
+
       <SeedPaper />
 
       <section className="sec inits-sec" aria-labelledby="iniciativas">
@@ -67,11 +70,13 @@ export default function Projectos() {
         <div className="inits2">
           {initiatives.map((it, i) => (
             <article key={it.name} className="init2" data-reveal data-delay={i * 0.06}>
+              <figure className="init2-img"><img src={it.img} alt={it.alt} loading="lazy" decoding="async" /></figure>
               <h3>{it.name}</h3>
               <p>{it.long}</p>
             </article>
           ))}
           <article className="init2 init2-num" data-reveal data-delay="0.12">
+            <figure className="init2-img init2-img-tall"><img src="/media/verde/agua.webp" alt="Criança a beber água de uma torneira comunitária" loading="lazy" decoding="async" /></figure>
             <p className="init2-big"><span data-to="1000">1.000</span><span className="plus">+</span></p>
             <h3>Lavatórios comunitários</h3>
             <p>Mais de mil lavatórios implementados junto das comunidades, um dos números de impacto social da ALLORA.</p>

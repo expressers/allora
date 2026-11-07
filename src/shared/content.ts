@@ -90,6 +90,8 @@ export type Service = {
   short: string
   text: string
   includes: string[]
+  img: string
+  alt: string
   link?: { label: string; href: string }
 }
 
@@ -98,6 +100,8 @@ export const services: Service[] = [
     slug: 'sustentabilidade-esg',
     topic: 'esg',
     title: 'Sustentabilidade corporativa e ESG',
+    img: '/media/verde/parque-solar.webp',
+    alt: 'Parque solar visto de cima, entre campos verdes',
     short: 'Integramos os princípios ESG na estratégia da empresa, em linha com o que exigem investidores, reguladores e mercados internacionais.',
     text: 'Apoiamos organizações na integração dos princípios ambientais, sociais e de governação na estratégia empresarial, garantindo alinhamento com as exigências de investidores, reguladores e mercados internacionais.',
     includes: [
@@ -111,6 +115,8 @@ export const services: Service[] = [
     slug: 'gestao-de-carbono',
     topic: 'carbono',
     title: 'Gestão de carbono e descarbonização',
+    img: '/media/verde/floresta-estrada.webp',
+    alt: 'Floresta densa vista de cima, atravessada por uma estrada',
     short: 'Medição, redução e compensação das emissões de gases com efeito de estufa, com o Carbonómetro e metodologias internacionais.',
     text: 'A transição para uma economia de baixo carbono é um dos maiores desafios e oportunidades da actualidade. Disponibilizamos soluções completas para medir, reduzir e compensar as emissões de gases com efeito de estufa.',
     includes: [
@@ -125,6 +131,8 @@ export const services: Service[] = [
     slug: 'licenciamento-ambiental',
     topic: 'licenciamento',
     title: 'Licenciamento e gestão ambiental',
+    img: '/media/verde/miradouro-da-lua.webp',
+    alt: 'Miradouro da Lua, a sul de Luanda: falésias de terra esculpidas pela erosão',
     short: 'Estudos de Impacte Ambiental (EIA), PGA e PGR, para garantir conformidade legal e reduzir o risco ambiental de cada projecto.',
     text: 'Os estudos ambientais são a base do desenvolvimento responsável de qualquer projecto. Realizamos avaliações técnicas completas para garantir a conformidade legal e minimizar os riscos ambientais.',
     includes: [
@@ -139,6 +147,8 @@ export const services: Service[] = [
     slug: 'formacao',
     topic: 'formacao',
     title: 'Formação e capacitação profissional',
+    img: '/media/verde/formacao.webp',
+    alt: 'Formador a dar uma aula a um grupo de adultos',
     short: 'A Academia ALLORA prepara líderes, gestores e equipas técnicas com programas, workshops, seminários e cursos especializados.',
     text: 'A transformação sustentável começa pelas pessoas. Através da Academia ALLORA, desenvolvemos programas de formação corporativa para capacitar líderes, gestores e equipas técnicas.',
     includes: [
@@ -153,6 +163,8 @@ export const services: Service[] = [
     slug: 'eventos-sustentaveis',
     topic: 'eventos',
     title: 'Eventos sustentáveis e impacto social',
+    img: '/media/carbonometro-opaia.webp',
+    alt: 'Visitantes a medir a pegada no stand da OPAIA, FILDA 2026',
     short: 'Eventos e stands carbono neutro, e projectos que ligam ambiente, economia circular e comunidades.',
     text: 'Desenhamos eventos com a pegada medida e compensada, e projectos de impacto social que levam a sustentabilidade para fora das empresas, até às comunidades.',
     includes: [
@@ -220,11 +232,15 @@ export const academy = {
 export const initiatives = [
   {
     name: 'EcoBag Angola',
+    img: '/media/verde/saco-rede.webp',
+    alt: 'Saco reutilizável de rede com legumes e fruta frescos',
     text: 'Sacos ecológicos reutilizáveis, para reduzir o plástico descartável e levar a economia circular ao dia-a-dia.',
     long: 'Iniciativa dedicada à produção e promoção de sacos ecológicos reutilizáveis, concebidos para reduzir o consumo de plásticos descartáveis e incentivar práticas de consumo mais sustentáveis. Contribui para a protecção do ambiente e para a economia circular.',
   },
   {
     name: 'Hortas Comunitárias',
+    img: '/media/verde/plantar.webp',
+    alt: 'Mãos a plantar uma muda em terra escura',
     text: 'Hortas sustentáveis que promovem a segurança alimentar, a educação ambiental e a produção local.',
     long: 'Projecto de impacto social que promove a segurança alimentar, a educação ambiental e o desenvolvimento comunitário através da criação de hortas sustentáveis, incentivando a produção local e o uso responsável dos recursos naturais.',
   },

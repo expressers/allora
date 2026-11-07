@@ -2,6 +2,7 @@ import { useLayoutEffect, useRef } from 'react'
 import { Page, TextLink } from '../ui/Page'
 import { PageHero } from '../ui/PageHero'
 import { CtaBand } from '../ui/CtaBand'
+import { ImageBand } from '../ui/ImageBand'
 import { SYMBOL } from '../ui/brand'
 import { carbon, methods } from '../shared/content'
 import { ScrollTrigger, reduceMotion } from '../shared/motion'
@@ -65,6 +66,8 @@ export default function Carbonometro() {
       />
 
       <Steps />
+
+      <ImageBand src="/media/verde/floresta-densa.webp" alt="Copas de árvores de uma floresta densa, vistas de cima" />
 
       <section className="sec filda" aria-labelledby="filda">
         <div className="filda-copy">

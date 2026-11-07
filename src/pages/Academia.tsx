@@ -1,6 +1,7 @@
 import { Page } from '../ui/Page'
 import { PageHero } from '../ui/PageHero'
 import { CtaBand } from '../ui/CtaBand'
+import { ImageBand } from '../ui/ImageBand'
 import { academy } from '../shared/content'
 
 export default function Academia() {
@@ -23,6 +24,7 @@ export default function Academia() {
             <p>profissionais formados em sustentabilidade, ESG, ambiente e economia circular.</p>
           </div>
         </div>
+        <figure className="acad-img" data-reveal><img src="/media/verde/academia-aula.webp" alt="Formador a explicar a matéria a uma turma" loading="lazy" decoding="async" /></figure>
       </section>
 
       <section className="sec formats" aria-labelledby="formatos">
@@ -31,6 +33,8 @@ export default function Academia() {
           {academy.formats.map((f, i) => <li key={f} data-reveal data-delay={i * 0.05}>{f}</li>)}
         </ul>
       </section>
+
+      <ImageBand src="/media/verde/mudas.webp" alt="Mudas a crescer em vasos pretos, vistas de cima" />
 
       <section className="themes" aria-labelledby="temas">
         <h2 id="temas" className="sr-only">Temas</h2>
