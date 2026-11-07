@@ -46,7 +46,9 @@ main { position: relative; z-index: 2; }
 .hdr { position: fixed; inset: 0 0 auto; z-index: 30; height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 0 var(--gutter); mix-blend-mode: normal; }
 /* scrim keeps the nav legible once copy scrolls under it */
 .hdr::before { content: ''; position: absolute; inset: 0 0 -28px; z-index: -1; pointer-events: none; background: linear-gradient(to bottom, rgba(0, 0, 0, 0.92) 40%, rgba(0, 0, 0, 0)); }
-.brand { font: 300 14px/1 var(--display); letter-spacing: 0.5em; margin-right: -0.5em; }
+.brand { display: block; color: var(--bone); line-height: 0; }
+.brand svg { display: block; height: 46px; width: auto; }
+@media (max-width: 600px) { .brand svg { height: 38px; } }
 .hdr-nav { display: flex; gap: 28px; font: 500 12px/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; }
 .hdr-nav a { color: var(--muted); transition: color 160ms ease; }
 .hdr-nav a:hover { color: var(--bone); }

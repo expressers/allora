@@ -2,6 +2,7 @@ import { Suspense, lazy, useEffect, useLayoutEffect, useRef } from 'react'
 import { ArrowUpRight } from '@phosphor-icons/react/dist/csr/ArrowUpRight'
 import { InstagramLogo } from '@phosphor-icons/react/dist/csr/InstagramLogo'
 import type { TunnelState } from './Tunnel'
+import { Logo } from './Logo'
 import {
   CTA, about, chapters, contact, forum, initiatives, mailto, nav, numbers,
   partnerCounts, partners, presence, sectors, services,
@@ -17,7 +18,7 @@ const fmt = (n: number) => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g
 function Header() {
   return (
     <header className="hdr">
-      <a href="#topo" className="brand" aria-label="ALLORA, início">ALLORA</a>
+      <a href="#topo" className="brand" aria-label="ALLORA, início"><Logo /></a>
       <nav className="hdr-nav" aria-label="Principal">
         {nav.map((n) => <a key={n.href} href={n.href}>{n.label}</a>)}
       </nav>

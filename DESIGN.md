@@ -23,3 +23,14 @@ Rules kept: no eyebrows above headings, one accent (red), sharp corners, one CTA
 ## Assets
 
 Photos come from ALLORA's public Instagram (@allorasulda) and allora.ao, cropped to remove UI overlays. They are ~1080px social exports: ask the client for originals before launch. Partner logos are from the current Fórum site. The header mark is a code-drawn approximation of the logo: replace with the official vector.
+
+## Logótipo
+
+Ficheiros oficiais vectorizados em `public/brand/` (a partir dos JPG do cliente, guardados em `.material/logo/`, fora do git):
+
+- `allora-logo.svg` (horizontal, cores oficiais: anel do vermelho ao preto, nome em gradiente escuro) para fundos claros.
+- `allora-logo-white.svg` (horizontal, branco) para fundos escuros ou vermelhos.
+- `allora-simbolo.svg` / `allora-simbolo-white.svg` (só o anel de 28 traços).
+- `favicon.svg` e `apple-touch-icon.png`: anel branco sobre o gradiente vermelho oficial (`#f90101` a `#a11111`).
+
+No site, o cabeçalho usa `src/site/Logo.tsx` (mesma geometria, em `currentColor`).
