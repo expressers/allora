@@ -1,31 +1,17 @@
-import { Suspense, lazy, useEffect, useLayoutEffect, useRef } from 'react'
+import { Suspense, lazy, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { ArrowUpRight } from '@phosphor-icons/react/dist/csr/ArrowUpRight'
 import { InstagramLogo } from '@phosphor-icons/react/dist/csr/InstagramLogo'
 import type { TunnelState } from './Tunnel'
-import { Logo } from './Logo'
+import { Header } from '../ui/Header'
+import { TextLink } from '../ui/Page'
 import {
-  CTA, about, chapters, contact, forum, initiatives, mailto, nav, numbers,
-  partnerCounts, partners, presence, sectors, services,
+  CONTACT_PAGE, CTA, about, chapters, contact, forum, initiatives, mailto, numbers,
+  pages, partnerCounts, partners, presence, sectors, services, tel,
 } from '../shared/content'
-import { gsap, ScrollTrigger, revealOnScroll, reduceMotion, startSmoothScroll, EASE_OUT } from '../shared/motion'
+import { gsap, ScrollTrigger, fmt, revealOnScroll, reduceMotion, startSmoothScroll, EASE_OUT } from '../shared/motion'
 
 // Three.js is ~700 kB: load it after the hero copy so the first paint is not blocked.
 const Tunnel = lazy(() => import('./Tunnel').then((m) => ({ default: m.Tunnel })))
-
-/** 1000 -> "1.000" (Portuguese grouping, also for four-digit numbers). */
-const fmt = (n: number) => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, '.')
-
-function Header() {
-  return (
-    <header className="hdr">
-      <a href="#topo" className="brand" aria-label="ALLORA, início"><Logo /></a>
-      <nav className="hdr-nav" aria-label="Principal">
-        {nav.map((n) => <a key={n.href} href={n.href}>{n.label}</a>)}
-      </nav>
-      <a className="btn btn-sm" href={mailto}>{CTA}</a>
-    </header>
-  )
-}
 
 function TunnelAct() {
   return (
@@ -39,7 +25,7 @@ function TunnelAct() {
         </h1>
         <div className="hero-side">
           <p>Transformamos sustentabilidade em valor para empresas, comunidades e o futuro de Angola.</p>
-          <a className="btn" href={mailto}>{CTA}<ArrowUpRight size={16} weight="bold" /></a>
+          <a className="btn" href={CONTACT_PAGE}>{CTA}<ArrowUpRight size={16} weight="bold" /></a>
         </div>
       </div>
       {chapters.map((c) => (
@@ -90,6 +76,7 @@ function About() {
               </div>
             ))}
           </dl>
+          <TextLink href="/sobre/">Conhecer a ALLORA</TextLink>
         </div>
       </div>
     </section>
@@ -189,6 +176,7 @@ function Lens() {
         <div className="lens-copy">
           <h2 className="lens-title">Carbonómetro</h2>
           <p>A solução da ALLORA para medir, reduzir e compensar a pegada carbónica. Na FILDA 2026 levámos ao recinto o primeiro stand com certificação Carbono Neutro em Angola, e cada visitante dos stands do BFA, do BCS e da OPAIA saiu a conhecer o seu número.</p>
+          <TextLink href="/carbonometro/">Ver o Carbonómetro</TextLink>
         </div>
       </div>
     </section>
@@ -224,6 +212,7 @@ function Reel() {
           <h2 className="reel-title">{forum.name}</h2>
           <p className="mono">{forum.edition}, {forum.date}. {forum.venue}.</p>
           <p className="reel-text">{forum.text}</p>
+          <TextLink href="/forum/">Ver o Fórum</TextLink>
         </div>
         {reel.map((r, i) => {
           if (r.kind === 'img') return (
@@ -277,6 +266,7 @@ function Initiatives() {
           </article>
         ))}
       </div>
+      <TextLink href="/projectos/">Ver projectos</TextLink>
     </section>
   )
 }
@@ -296,6 +286,7 @@ function Credits() {
       <p className="credits-sectors" data-reveal>
         Para {sectors.slice(0, -1).map((s) => s.toLowerCase()).join(', ')} e {sectors[sectors.length - 1].toLowerCase()}.
       </p>
+      <div className="credits-more" data-reveal><TextLink href="/servicos/">Ver serviços</TextLink></div>
 
       <h3 className="credits-sub" data-reveal>Com quem trabalhamos</h3>
       <dl className="credits-counts" data-reveal>
@@ -320,12 +311,16 @@ function Finale() {
           <p className="finale-note">Para orçamentos e sugestões, estamos disponíveis 24 horas por dia, todos os dias.</p>
         </div>
         <div className="finale-meta mono">
-          {contact.phones.map((p) => <a key={p} href={`tel:${p.replace(/\s/g, '')}`}>{p}</a>)}
+          {contact.phones.map((p) => <a key={p} href={tel(p)}>{p}</a>)}
           <address>{contact.address[0]}<br />{contact.address[1]}</address>
           <a href={contact.instagram} target="_blank" rel="noreferrer"><InstagramLogo size={14} /> @allorasulda</a>
         </div>
-        <a className="btn btn-lg" href={mailto}>{CTA}<ArrowUpRight size={18} weight="bold" /></a>
+        <a className="btn btn-lg" href={CONTACT_PAGE}>{CTA}<ArrowUpRight size={18} weight="bold" /></a>
       </div>
+      <nav className="finale-nav" aria-label="Páginas">
+        {pages.map((p) => <a key={p.key} href={p.href}>{p.label}</a>)}
+        <a href={CONTACT_PAGE}>Contactos</a>
+      </nav>
       <p className="finale-word" aria-hidden="true">ALLORA</p>
       <footer className="ftr mono"><span>© 2026 ALLORA SU, LDA</span><span>Cuidamos do Amanhã Hoje</span></footer>
     </section>
@@ -335,6 +330,9 @@ function Finale() {
 export default function App() {
   const root = useRef<HTMLDivElement>(null)
   const state = useRef<TunnelState>({ progress: 0, visible: 1 })
+  // O túnel (WebGL) só existe no navegador: não entra na pré-renderização.
+  const [client, setClient] = useState(false)
+  useEffect(() => setClient(true), [])
 
   useLayoutEffect(() => {
     const fade = { out: 1, back: 0 }
@@ -366,8 +364,9 @@ export default function App() {
 
   return (
     <div ref={root}>
-      <Suspense fallback={null}><Tunnel stateRef={state} /></Suspense>
+      {client && <Suspense fallback={null}><Tunnel stateRef={state} /></Suspense>}
       <div className="grain" aria-hidden="true" />
+      <a className="skip" href="#sobre">Saltar para o conteúdo</a>
       <Header />
       <main>
         <TunnelAct />

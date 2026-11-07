@@ -26,3 +26,6 @@ dist-ssr
 # client source material (not shipped)
 _source
 .material/
+
+# pré-renderização (temporário)
+.ssr
